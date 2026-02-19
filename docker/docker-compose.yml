@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Contenedor de Base de Datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: appcoches-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: AppCoches9393
+      MYSQL_DATABASE: appcoches
+      MYSQL_USER: appcoches_user
+      MYSQL_PASSWORD: AppCoches9393
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - appcoches-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pAppCoches9393"]
+      timeout: 20s
+      retries: 10
+
+  # Contenedor de Aplicación (Frontend + Backend)
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: appcoches-app
+    restart: always
+    ports:
+      - "5000:5000"  # Backend Flask
+      - "8000:8000"  # Frontend HTTP Server
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=AppCoches9393
+      - DB_NAME=appcoches
+    volumes:
+      - ../backend/uploads:/app/uploads
+    networks:
+      - appcoches-network
+
+networks:
+  appcoches-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
