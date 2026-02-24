@@ -1,5 +1,5 @@
 # coches.py
-# Gestión de coches (listar con filtros)
+# Gestión de coches (listar con filtros) - PROTEGIDO CONTRA OWASP A01:2025
 
 from flask import Blueprint, request, jsonify
 from database import execute_query
@@ -8,12 +8,14 @@ from config import SECRET_KEY
 import os
 import base64
 from werkzeug.utils import secure_filename
+from functools import wraps
 
 coches_bp = Blueprint('coches', __name__)
 
 # Configuración de subida de archivos
 UPLOAD_FOLDER = 'uploads/coches'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
 
 # Crear carpeta si no existe
 if not os.path.exists(UPLOAD_FOLDER):
@@ -23,29 +25,115 @@ def allowed_file(filename):
     """Verifica si el archivo tiene una extensión permitida"""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def verificar_admin(token):
-    """Verifica si el usuario es admin"""
-    try:
-        if token.startswith('Bearer '):
-            token = token[7:]
-        payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
-        return payload.get('rol') == 'admin', payload
-    except:
-        return False, None
+# ============================================
+# DECORADORES PARA PROTECCIÓN DE ACCESO
+# ============================================
+
+def verificar_token(f):
+    """
+    Decorador que verifica que el usuario tenga un token válido
+    Protege contra acceso no autenticado
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        
+        if not token:
+            return jsonify({
+                'success': False,
+                'message': 'Token de autenticación requerido'
+            }), 401
+        
+        try:
+            if token.startswith('Bearer '):
+                token = token[7:]
+            
+            payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            request.user_id = payload.get('user_id')
+            request.user_email = payload.get('email')
+            request.user_rol = payload.get('rol')
+            
+        except jwt.ExpiredSignatureError:
+            return jsonify({
+                'success': False,
+                'message': 'Token expirado. Por favor, inicia sesión nuevamente'
+            }), 401
+        except jwt.InvalidTokenError:
+            return jsonify({
+                'success': False,
+                'message': 'Token inválido'
+            }), 401
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': 'Error de autenticación'
+            }), 401
+        
+        return f(*args, **kwargs)
+    
+    return decorated_function
+
+def requiere_admin(f):
+    """
+    Decorador que verifica que el usuario sea administrador
+    Protege contra escalada de privilegios
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        
+        if not token:
+            return jsonify({
+                'success': False,
+                'message': 'Token de autenticación requerido'
+            }), 401
+        
+        try:
+            if token.startswith('Bearer '):
+                token = token[7:]
+            
+            payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            
+            # Verificar que sea admin
+            if payload.get('rol') != 'admin':
+                return jsonify({
+                    'success': False,
+                    'message': 'Acceso denegado. Se requieren permisos de administrador'
+                }), 403
+            
+            request.user_id = payload.get('user_id')
+            request.user_email = payload.get('email')
+            request.user_rol = payload.get('rol')
+            
+        except jwt.ExpiredSignatureError:
+            return jsonify({
+                'success': False,
+                'message': 'Token expirado. Por favor, inicia sesión nuevamente'
+            }), 401
+        except jwt.InvalidTokenError:
+            return jsonify({
+                'success': False,
+                'message': 'Token inválido'
+            }), 401
+        except Exception as e:
+            return jsonify({
+                'success': False,
+                'message': 'Error de autenticación'
+            }), 401
+        
+        return f(*args, **kwargs)
+    
+    return decorated_function
+
+# ============================================
+# ENDPOINTS PÚBLICOS (sin autenticación)
+# ============================================
 
 @coches_bp.route('/coches', methods=['GET'])
 def listar_coches():
     """
-    Endpoint para listar coches con filtros opcionales
-    Parámetros de query:
-    - marca: filtrar por marca
-    - modelo: filtrar por modelo
-    - año_min: año mínimo
-    - año_max: año máximo
-    - precio_min: precio mínimo
-    - precio_max: precio máximo
-    - ordenar: campo por el que ordenar (marca, modelo, año, precio)
-    - orden: ASC o DESC
+    Endpoint PÚBLICO para listar coches con filtros opcionales
+    No requiere autenticación - cualquiera puede ver el catálogo
     """
     try:
         # Obtener parámetros de filtro
@@ -62,7 +150,7 @@ def listar_coches():
         if orden not in ['ASC', 'DESC']:
             orden = 'ASC'
         
-        # Validar campo de ordenamiento
+        # Validar campo de ordenamiento (prevenir SQL injection)
         campos_validos = ['id', 'marca', 'modelo', 'año', 'precio']
         if ordenar not in campos_validos:
             ordenar = 'id'
@@ -108,7 +196,7 @@ def listar_coches():
                 'message': 'Error al obtener coches'
             }), 500
         
-        # Formatear precios a 2 decimales
+        # Formatear precios
         for coche in coches:
             coche['precio'] = float(coche['precio'])
         
@@ -127,8 +215,18 @@ def listar_coches():
 
 @coches_bp.route('/coches/<int:id>', methods=['GET'])
 def obtener_coche(id):
-    """Obtiene los detalles de un coche específico"""
+    """
+    Endpoint PÚBLICO para obtener un coche específico
+    No requiere autenticación
+    """
     try:
+        # Validar que el ID sea positivo
+        if id <= 0:
+            return jsonify({
+                'success': False,
+                'message': 'ID inválido'
+            }), 400
+        
         query = "SELECT * FROM coches WHERE id = %s"
         resultado = execute_query(query, (id,), fetch=True)
         
@@ -155,7 +253,10 @@ def obtener_coche(id):
 
 @coches_bp.route('/marcas', methods=['GET'])
 def listar_marcas():
-    """Obtiene la lista única de marcas disponibles"""
+    """
+    Endpoint PÚBLICO para obtener lista de marcas
+    No requiere autenticación
+    """
     try:
         query = "SELECT DISTINCT marca FROM coches ORDER BY marca"
         resultado = execute_query(query, fetch=True)
@@ -182,7 +283,10 @@ def listar_marcas():
 
 @coches_bp.route('/estadisticas', methods=['GET'])
 def obtener_estadisticas():
-    """Obtiene estadísticas básicas de los coches"""
+    """
+    Endpoint PÚBLICO para obtener estadísticas básicas
+    No requiere autenticación
+    """
     try:
         query = """
             SELECT 
@@ -203,7 +307,6 @@ def obtener_estadisticas():
             }), 500
         
         stats = resultado[0]
-        # Formatear decimales
         if stats['precio_promedio']:
             stats['precio_promedio'] = float(stats['precio_promedio'])
         if stats['precio_min']:
@@ -223,25 +326,46 @@ def obtener_estadisticas():
             'message': 'Error interno del servidor'
         }), 500
 
-@coches_bp.route('/coches', methods=['POST'])
-def crear_coche():
-    """Crea un nuevo coche (solo admin)"""
+@coches_bp.route('/uploads/<filename>', methods=['GET'])
+def servir_imagen(filename):
+    """
+    Endpoint PÚBLICO para servir imágenes
+    Valida el nombre del archivo para prevenir path traversal
+    """
     try:
-        # Verificar token y rol admin
-        token = request.headers.get('Authorization')
-        if not token:
+        # Validar filename (prevenir path traversal)
+        filename = secure_filename(filename)
+        
+        # Verificar que el archivo existe
+        filepath = os.path.join(UPLOAD_FOLDER, filename)
+        if not os.path.exists(filepath):
             return jsonify({
                 'success': False,
-                'message': 'Token no proporcionado'
-            }), 401
+                'message': 'Imagen no encontrada'
+            }), 404
         
-        es_admin, payload = verificar_admin(token)
-        if not es_admin:
-            return jsonify({
-                'success': False,
-                'message': 'Solo administradores pueden crear coches'
-            }), 403
-        
+        from flask import send_from_directory
+        return send_from_directory(UPLOAD_FOLDER, filename)
+    
+    except Exception as e:
+        print(f"Error al servir imagen: {e}")
+        return jsonify({
+            'success': False,
+            'message': 'Error al cargar la imagen'
+        }), 500
+
+# ============================================
+# ENDPOINTS PROTEGIDOS (solo administradores)
+# ============================================
+
+@coches_bp.route('/coches', methods=['POST'])
+@requiere_admin
+def crear_coche():
+    """
+    PROTEGIDO: Solo administradores pueden crear coches
+    Requiere token JWT válido con rol 'admin'
+    """
+    try:
         # Obtener datos del JSON
         data = request.get_json()
         marca = data.get('marca', '').strip()
@@ -251,18 +375,32 @@ def crear_coche():
         descripcion = data.get('descripcion', '').strip()
         imagen_base64 = data.get('imagen', '')
         
-        # Validar datos
+        # Validar datos obligatorios
         if not marca or not modelo or not año or not precio:
             return jsonify({
                 'success': False,
                 'message': 'Marca, modelo, año y precio son obligatorios'
             }), 400
         
-        # Validar tipos
+        # Validar tipos y rangos
         try:
             año = int(año)
             precio = float(precio)
-        except:
+            
+            # Validaciones de negocio
+            if año < 1900 or año > 2030:
+                return jsonify({
+                    'success': False,
+                    'message': 'El año debe estar entre 1900 y 2030'
+                }), 400
+            
+            if precio < 0 or precio > 1000000:
+                return jsonify({
+                    'success': False,
+                    'message': 'El precio debe estar entre 0 y 1,000,000'
+                }), 400
+                
+        except ValueError:
             return jsonify({
                 'success': False,
                 'message': 'Año y precio deben ser números válidos'
@@ -270,26 +408,35 @@ def crear_coche():
         
         # Guardar imagen si se proporciona
         imagen_filename = None
-        if imagen_base64:
+        if imagen_base64 and imagen_base64 != 'keep_current':
             try:
-                # Extraer el contenido base64 (quitar el prefijo data:image/...)
+                # Extraer el contenido base64
                 if ',' in imagen_base64:
                     imagen_base64 = imagen_base64.split(',')[1]
                 
-                # Decodificar base64
+                # Validar tamaño
                 imagen_data = base64.b64decode(imagen_base64)
+                if len(imagen_data) > MAX_FILE_SIZE:
+                    return jsonify({
+                        'success': False,
+                        'message': f'La imagen excede el tamaño máximo de {MAX_FILE_SIZE / 1024 / 1024}MB'
+                    }), 400
                 
-                # Generar nombre único para el archivo
+                # Generar nombre seguro
                 import time
-                imagen_filename = f"coche_{int(time.time())}.jpg"
+                imagen_filename = secure_filename(f"coche_{int(time.time())}.jpg")
                 imagen_path = os.path.join(UPLOAD_FOLDER, imagen_filename)
                 
                 # Guardar archivo
                 with open(imagen_path, 'wb') as f:
                     f.write(imagen_data)
+                    
             except Exception as e:
                 print(f"Error al guardar imagen: {e}")
-                imagen_filename = None
+                return jsonify({
+                    'success': False,
+                    'message': 'Error al procesar la imagen'
+                }), 400
         
         # Insertar coche
         query = """
@@ -299,6 +446,9 @@ def crear_coche():
         result = execute_query(query, (marca, modelo, año, precio, descripcion, imagen_filename))
         
         if result and result['affected_rows'] > 0:
+            # Log de auditoría
+            print(f"AUDIT: Admin {request.user_email} creó coche ID {result['last_id']}")
+            
             return jsonify({
                 'success': True,
                 'message': 'Coche creado exitosamente',
@@ -318,23 +468,19 @@ def crear_coche():
         }), 500
 
 @coches_bp.route('/coches/<int:id>', methods=['PUT'])
+@requiere_admin
 def editar_coche(id):
-    """Edita un coche existente (solo admin)"""
+    """
+    PROTEGIDO: Solo administradores pueden editar coches
+    Requiere token JWT válido con rol 'admin'
+    """
     try:
-        # Verificar token y rol admin
-        token = request.headers.get('Authorization')
-        if not token:
+        # Validar ID
+        if id <= 0:
             return jsonify({
                 'success': False,
-                'message': 'Token no proporcionado'
-            }), 401
-        
-        es_admin, payload = verificar_admin(token)
-        if not es_admin:
-            return jsonify({
-                'success': False,
-                'message': 'Solo administradores pueden editar coches'
-            }), 403
+                'message': 'ID inválido'
+            }), 400
         
         # Verificar que el coche existe
         query_check = "SELECT imagen FROM coches WHERE id = %s"
@@ -347,7 +493,7 @@ def editar_coche(id):
         
         imagen_anterior = existe[0]['imagen']
         
-        # Obtener datos del coche
+        # Obtener datos
         data = request.get_json()
         marca = data.get('marca', '').strip()
         modelo = data.get('modelo', '').strip()
@@ -363,42 +509,57 @@ def editar_coche(id):
                 'message': 'Marca, modelo, año y precio son obligatorios'
             }), 400
         
-        # Validar tipos
+        # Validar tipos y rangos
         try:
             año = int(año)
             precio = float(precio)
-        except:
+            
+            if año < 1900 or año > 2030:
+                return jsonify({
+                    'success': False,
+                    'message': 'El año debe estar entre 1900 y 2030'
+                }), 400
+            
+            if precio < 0 or precio > 1000000:
+                return jsonify({
+                    'success': False,
+                    'message': 'El precio debe estar entre 0 y 1,000,000'
+                }), 400
+                
+        except ValueError:
             return jsonify({
                 'success': False,
                 'message': 'Año y precio deben ser números válidos'
             }), 400
         
         # Guardar nueva imagen si se proporciona
-        imagen_filename = imagen_anterior  # Mantener la imagen anterior por defecto
+        imagen_filename = imagen_anterior
         if imagen_base64 and imagen_base64 != 'keep_current':
             try:
-                # Extraer el contenido base64
                 if ',' in imagen_base64:
                     imagen_base64 = imagen_base64.split(',')[1]
                 
-                # Decodificar base64
                 imagen_data = base64.b64decode(imagen_base64)
+                if len(imagen_data) > MAX_FILE_SIZE:
+                    return jsonify({
+                        'success': False,
+                        'message': f'La imagen excede el tamaño máximo de {MAX_FILE_SIZE / 1024 / 1024}MB'
+                    }), 400
                 
-                # Generar nombre único para el archivo
                 import time
-                imagen_filename = f"coche_{int(time.time())}.jpg"
+                imagen_filename = secure_filename(f"coche_{int(time.time())}.jpg")
                 imagen_path = os.path.join(UPLOAD_FOLDER, imagen_filename)
                 
-                # Guardar archivo
                 with open(imagen_path, 'wb') as f:
                     f.write(imagen_data)
                 
-                # Eliminar imagen anterior si existe
+                # Eliminar imagen anterior
                 if imagen_anterior and imagen_anterior != 'default-car.jpg':
                     try:
                         os.remove(os.path.join(UPLOAD_FOLDER, imagen_anterior))
                     except:
                         pass
+                        
             except Exception as e:
                 print(f"Error al guardar imagen: {e}")
         
@@ -411,6 +572,9 @@ def editar_coche(id):
         result = execute_query(query, (marca, modelo, año, precio, descripcion, imagen_filename, id))
         
         if result and result['affected_rows'] > 0:
+            # Log de auditoría
+            print(f"AUDIT: Admin {request.user_email} editó coche ID {id}")
+            
             return jsonify({
                 'success': True,
                 'message': 'Coche actualizado exitosamente'
@@ -429,23 +593,19 @@ def editar_coche(id):
         }), 500
 
 @coches_bp.route('/coches/<int:id>', methods=['DELETE'])
+@requiere_admin
 def eliminar_coche(id):
-    """Elimina un coche (solo admin)"""
+    """
+    PROTEGIDO: Solo administradores pueden eliminar coches
+    Requiere token JWT válido con rol 'admin'
+    """
     try:
-        # Verificar token y rol admin
-        token = request.headers.get('Authorization')
-        if not token:
+        # Validar ID
+        if id <= 0:
             return jsonify({
                 'success': False,
-                'message': 'Token no proporcionado'
-            }), 401
-        
-        es_admin, payload = verificar_admin(token)
-        if not es_admin:
-            return jsonify({
-                'success': False,
-                'message': 'Solo administradores pueden eliminar coches'
-            }), 403
+                'message': 'ID inválido'
+            }), 400
         
         # Verificar que el coche existe y obtener su imagen
         query_check = "SELECT imagen FROM coches WHERE id = %s"
@@ -463,12 +623,15 @@ def eliminar_coche(id):
         result = execute_query(query, (id,))
         
         if result and result['affected_rows'] > 0:
-            # Eliminar imagen del servidor si existe
+            # Eliminar imagen del servidor
             if imagen and imagen != 'default-car.jpg':
                 try:
                     os.remove(os.path.join(UPLOAD_FOLDER, imagen))
                 except:
                     pass
+            
+            # Log de auditoría
+            print(f"AUDIT: Admin {request.user_email} eliminó coche ID {id}")
             
             return jsonify({
                 'success': True,
@@ -486,16 +649,3 @@ def eliminar_coche(id):
             'success': False,
             'message': 'Error interno del servidor'
         }), 500
-
-@coches_bp.route('/uploads/<filename>', methods=['GET'])
-def servir_imagen(filename):
-    """Sirve una imagen de coche"""
-    try:
-        from flask import send_from_directory
-        return send_from_directory(UPLOAD_FOLDER, filename)
-    except:
-        # Si no se encuentra la imagen, devolver una imagen por defecto
-        return jsonify({
-            'success': False,
-            'message': 'Imagen no encontrada'
-        }), 404
