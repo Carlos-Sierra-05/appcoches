@@ -232,11 +232,6 @@ Email: admin@ejemplo.com
 Password: admin123
 ```
 
-#### Usuario normal:
-```
-Email: carlosss30112005@gmail.com
-Password: (la contraseña configurada)
-```
 
 ### Flujo de uso
 
