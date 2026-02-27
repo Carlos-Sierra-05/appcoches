@@ -116,7 +116,7 @@ jobs:
     - name: 🏗️ Build imagen de la aplicación
       run: |
         cd docker
-        docker compose build
+        docker-compose build
     
     - name: ✅ Verificar imágenes creadas
       run: |
