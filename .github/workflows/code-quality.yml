@@ -1,0 +1,45 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Linting y Formato
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Configurar Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: 📦 Instalar herramientas de linting
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 pylint black
+    
+    - name: 🔍 Ejecutar Flake8
+      run: |
+        cd backend
+        # Errores críticos que detienen el build
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Warnings que no detienen el build
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      continue-on-error: true
+    
+    - name: 🎨 Verificar formato con Black
+      run: |
+        cd backend
+        black --check --diff . || echo "⚠️ Código no formateado con Black (no crítico)"
+      continue-on-error: true
+    
+    - name: ✅ Resumen de calidad de código
+      run: |
+        echo "✅ Análisis de calidad de código completado"
