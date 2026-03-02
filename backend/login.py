@@ -1,5 +1,5 @@
 # login.py
-# Gestión del inicio de sesión (OWASP A04, A07, A09)
+# Gestión del inicio de sesión (OWASP A04, A07)
 
 from flask import Blueprint, request, jsonify
 from database import execute_query
@@ -7,16 +7,6 @@ import bcrypt
 import jwt
 from datetime import datetime, timedelta
 from config import SECRET_KEY
-from security_logger import (
-    log_login_success,
-    log_login_failure,
-    log_account_locked,
-    log_token_expired,
-    log_invalid_token,
-    log_unauthorized_access,
-    get_client_ip,
-    get_user_agent
-)
 import time
 
 login_bp = Blueprint('login', __name__)
@@ -47,7 +37,7 @@ def check_account_locked(email):
             return False, 0
     return False, 0
 
-def register_failed_attempt(email, ip_address):
+def register_failed_attempt(email):
     """Registra un intento fallido"""
     if email not in failed_attempts:
         failed_attempts[email] = {'count': 0, 'last_attempt': time.time()}
@@ -58,7 +48,7 @@ def register_failed_attempt(email, ip_address):
     # Si excede el límite, bloquear cuenta
     if failed_attempts[email]['count'] >= MAX_ATTEMPTS:
         locked_accounts[email] = time.time()
-        log_account_locked(email, ip_address)
+        print(f"ACCOUNT_LOCKED | Email: {email} | Reason: Too many failed attempts")
         return True
     
     return False
@@ -97,11 +87,8 @@ def generar_token(user_id, email, rol):
 def iniciar_sesion():
     """
     Endpoint para iniciar sesión
-    Protegido contra: A04 (Crypto), A07 (Auth), A09 (Logging)
+    Protegido contra: A04 (Crypto), A07 (Auth)
     """
-    ip_address = get_client_ip(request)
-    user_agent = get_user_agent(request)
-    
     try:
         data = request.get_json()
         
@@ -110,7 +97,7 @@ def iniciar_sesion():
         password = data.get('password', '')
         
         if not email or not password:
-            log_login_failure(email, ip_address, 'Campos vacíos', user_agent)
+            print(f"LOGIN_FAILURE | Email: {email} | Reason: Campos vacíos")
             return jsonify({
                 'success': False,
                 'message': 'Email y contraseña son obligatorios'
@@ -122,7 +109,7 @@ def iniciar_sesion():
         
         is_locked, remaining_time = check_account_locked(email)
         if is_locked:
-            log_login_failure(email, ip_address, 'Cuenta bloqueada', user_agent)
+            print(f"LOGIN_FAILURE | Email: {email} | Reason: Cuenta bloqueada")
             return jsonify({
                 'success': False,
                 'message': f'Cuenta bloqueada temporalmente. Intenta de nuevo en {remaining_time // 60} minutos'
@@ -141,8 +128,8 @@ def iniciar_sesion():
         
         if not resultado:
             # Usuario no existe
-            log_login_failure(email, ip_address, 'Usuario no existe', user_agent)
-            register_failed_attempt(email, ip_address)
+            print(f"LOGIN_FAILURE | Email: {email} | Reason: Usuario no existe")
+            register_failed_attempt(email)
             return jsonify({
                 'success': False,
                 'message': 'Email o contraseña incorrectos'
@@ -180,8 +167,8 @@ def iniciar_sesion():
         
         if not password_correcta:
             # Contraseña incorrecta
-            log_login_failure(email, ip_address, 'Contraseña incorrecta', user_agent)
-            is_locked = register_failed_attempt(email, ip_address)
+            print(f"LOGIN_FAILURE | Email: {email} | Reason: Contraseña incorrecta")
+            is_locked = register_failed_attempt(email)
             
             if is_locked:
                 return jsonify({
@@ -205,8 +192,7 @@ def iniciar_sesion():
         # Generar token JWT
         token = generar_token(usuario['id'], usuario['email'], usuario['rol'])
         
-        # Log de éxito (A09)
-        log_login_success(email, ip_address, user_agent)
+        print(f"LOGIN_SUCCESS | Email: {email}")
         
         return jsonify({
             'success': True,
@@ -221,14 +207,7 @@ def iniciar_sesion():
         }), 200
     
     except Exception as e:
-        # Log de error (A09, A10)
-        log_login_failure(
-            email if 'email' in locals() else 'unknown',
-            ip_address,
-            f'Exception: {str(e)}',
-            user_agent
-        )
-        print(f"Error en login: {e}")
+        print(f"ERROR en login: {e}")
         
         return jsonify({
             'success': False,
@@ -243,15 +222,12 @@ def iniciar_sesion():
 def verificar_token():
     """
     Verifica si un token JWT es válido
-    Con logging de intentos fallidos (A09)
     """
-    ip_address = get_client_ip(request)
-    
     try:
         token = request.headers.get('Authorization')
         
         if not token:
-            log_unauthorized_access('/verificar-token', ip_address, 'Token no proporcionado')
+            print("UNAUTHORIZED_ACCESS | /verificar-token | Reason: Token no proporcionado")
             return jsonify({
                 'success': False,
                 'message': 'Token no proporcionado'
@@ -275,14 +251,14 @@ def verificar_token():
             }), 200
         
         except jwt.ExpiredSignatureError:
-            log_token_expired(payload.get('email', 'unknown'), ip_address)
+            print(f"TOKEN_EXPIRED | Email: {payload.get('email', 'unknown')}")
             return jsonify({
                 'success': False,
                 'message': 'Token expirado. Por favor, inicia sesión nuevamente'
             }), 401
         
         except jwt.InvalidTokenError:
-            log_invalid_token(ip_address)
+            print("INVALID_TOKEN")
             return jsonify({
                 'success': False,
                 'message': 'Token inválido'

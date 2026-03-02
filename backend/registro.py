@@ -1,16 +1,10 @@
 # registro.py
-# Gestión del registro de usuarios (OWASP A04, A07, A09)
+# Gestión del registro de usuarios (OWASP A04, A07)
 
 from flask import Blueprint, request, jsonify
 from database import execute_query
 import bcrypt
 import re
-from security_logger import (
-    log_register_success, 
-    log_register_failure,
-    get_client_ip,
-    get_user_agent
-)
 
 registro_bp = Blueprint('registro', __name__)
 
@@ -40,10 +34,6 @@ def validar_contraseña(password):
     if not re.search(r'\d', password):
         return False, "La contraseña debe contener al menos un número"
     
-    # Opcional: verificar caracteres especiales
-    # if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
-    #     return False, "La contraseña debe contener al menos un carácter especial"
-    
     return True, "Contraseña válida"
 
 def validar_email(email):
@@ -61,11 +51,8 @@ def validar_email(email):
 def registrar_usuario():
     """
     Endpoint para registrar un nuevo usuario
-    Protegido contra: A04 (Crypto), A07 (Auth), A09 (Logging)
+    Protegido contra: A04 (Crypto), A07 (Auth)
     """
-    ip_address = get_client_ip(request)
-    user_agent = get_user_agent(request)
-    
     try:
         data = request.get_json()
         
@@ -79,7 +66,7 @@ def registrar_usuario():
         # ============================================
         
         if not nombre or not email or not password:
-            log_register_failure(email, ip_address, 'Campos vacíos')
+            print(f"REGISTRO_FAILURE | Email: {email} | Reason: Campos vacíos")
             return jsonify({
                 'success': False,
                 'message': 'Todos los campos son obligatorios'
@@ -87,7 +74,7 @@ def registrar_usuario():
         
         # Validar longitud del nombre
         if len(nombre) < 2 or len(nombre) > 100:
-            log_register_failure(email, ip_address, 'Nombre inválido')
+            print(f"REGISTRO_FAILURE | Email: {email} | Reason: Nombre inválido")
             return jsonify({
                 'success': False,
                 'message': 'El nombre debe tener entre 2 y 100 caracteres'
@@ -95,7 +82,7 @@ def registrar_usuario():
         
         # Validar formato de email
         if not validar_email(email):
-            log_register_failure(email, ip_address, 'Email inválido')
+            print(f"REGISTRO_FAILURE | Email: {email} | Reason: Email inválido")
             return jsonify({
                 'success': False,
                 'message': 'Formato de email inválido'
@@ -104,7 +91,7 @@ def registrar_usuario():
         # Validar contraseña
         password_valida, mensaje = validar_contraseña(password)
         if not password_valida:
-            log_register_failure(email, ip_address, mensaje)
+            print(f"REGISTRO_FAILURE | Email: {email} | Reason: {mensaje}")
             return jsonify({
                 'success': False,
                 'message': mensaje
@@ -118,7 +105,7 @@ def registrar_usuario():
         resultado = execute_query(query_check, (email,), fetch=True)
         
         if resultado:
-            log_register_failure(email, ip_address, 'Email ya registrado')
+            print(f"REGISTRO_FAILURE | Email: {email} | Reason: Email ya registrado")
             return jsonify({
                 'success': False,
                 'message': 'El email ya está registrado'
@@ -146,8 +133,7 @@ def registrar_usuario():
         )
         
         if result and result['affected_rows'] > 0:
-            # Log de éxito (A09)
-            log_register_success(email, ip_address)
+            print(f"REGISTRO_SUCCESS | Email: {email}")
             
             return jsonify({
                 'success': True,
@@ -155,20 +141,14 @@ def registrar_usuario():
                 'user_id': result['last_id']
             }), 201
         else:
-            log_register_failure(email, ip_address, 'Error en base de datos')
+            print(f"REGISTRO_FAILURE | Email: {email} | Reason: Error en base de datos")
             return jsonify({
                 'success': False,
                 'message': 'Error al registrar usuario'
             }), 500
     
     except Exception as e:
-        # Log de error (A09, A10)
-        log_register_failure(
-            email if 'email' in locals() else 'unknown',
-            ip_address,
-            f'Exception: {str(e)}'
-        )
-        print(f"Error en registro: {e}")
+        print(f"ERROR en registro: {e}")
         
         return jsonify({
             'success': False,

@@ -14,7 +14,7 @@ from config import (
     SECURITY_HEADERS,
     RATE_LIMIT_API
 )
-from security_logger import security_logger, log_rate_limit_exceeded
+from datetime import datetime
 import os
 
 # ============================================
@@ -53,7 +53,6 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=[RATE_LIMIT_API],
     storage_uri="memory://",  # En producción usar Redis
-    on_breach=lambda limit: log_rate_limit_exceeded(request.path, get_remote_address())
 )
 
 # ============================================
@@ -121,8 +120,7 @@ def inicio():
             'Security Headers',
             'CORS Protection',
             'Input Validation',
-            'SQL Injection Protection',
-            'Comprehensive Security Logging'
+            'SQL Injection Protection'
         ]
     })
 
@@ -196,7 +194,7 @@ def rate_limit_exceeded(error):
 @app.errorhandler(500)
 def internal_error(error):
     """Manejo de errores internos del servidor"""
-    security_logger.error(f"Internal Server Error: {str(error)}")
+    print(f"Internal Server Error: {str(error)}")
     return jsonify({
         'success': False,
         'error': 'Internal Server Error',
@@ -206,7 +204,7 @@ def internal_error(error):
 @app.errorhandler(Exception)
 def handle_exception(error):
     """Manejo genérico de excepciones no capturadas"""
-    security_logger.error(f"Unhandled Exception: {str(error)}")
+    print(f"Unhandled Exception: {str(error)}")
     return jsonify({
         'success': False,
         'error': 'Internal Server Error',
@@ -219,11 +217,11 @@ def handle_exception(error):
 
 def crear_directorios():
     """Crea directorios necesarios si no existen"""
-    directories = ['logs', 'uploads/coches']
+    directories = ['uploads/coches']
     for directory in directories:
         if not os.path.exists(directory):
             os.makedirs(directory)
-            security_logger.info(f"Directorio creado: {directory}")
+            print(f"Directorio creado: {directory}")
 
 # ============================================
 # EJECUTAR APLICACIÓN
@@ -234,14 +232,14 @@ if __name__ == '__main__':
     crear_directorios()
     
     # Log de inicio
-    security_logger.info("=" * 50)
-    security_logger.info("Servidor Flask iniciado")
-    security_logger.info(f"Modo: {'Desarrollo' if DEBUG_MODE else 'Producción'}")
-    security_logger.info(f"Rate Limiting: Activado")
-    security_logger.info(f"Security Headers: Activados")
-    security_logger.info(f"CORS: Configurado para {ALLOWED_ORIGINS}")
-    security_logger.info("API disponible en: http://localhost:5000")
-    security_logger.info("=" * 50)
+    print("=" * 50)
+    print("Servidor Flask iniciado")
+    print(f"Modo: {'Desarrollo' if DEBUG_MODE else 'Producción'}")
+    print(f"Rate Limiting: Activado")
+    print(f"Security Headers: Activados")
+    print(f"CORS: Configurado para {ALLOWED_ORIGINS}")
+    print("API disponible en: http://localhost:5000")
+    print("=" * 50)
     
     # Ejecutar servidor
     app.run(
