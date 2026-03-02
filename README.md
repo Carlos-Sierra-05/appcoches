@@ -245,7 +245,7 @@ Password: admin123
 
 ---
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 appcoches/
