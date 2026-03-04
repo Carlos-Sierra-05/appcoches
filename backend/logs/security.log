@@ -1,0 +1,28 @@
+2026-03-02 20:14:33 | INFO | ============================================================
+2026-03-02 20:14:33 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-02 20:14:33 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-02 20:14:33 | INFO | Logs de consola: Activos
+2026-03-02 20:14:33 | INFO | ============================================================
+2026-03-02 20:14:33 | INFO | ==================================================
+2026-03-02 20:14:33 | INFO | Servidor Flask iniciado
+2026-03-02 20:14:33 | INFO | Modo: Producción
+2026-03-02 20:14:33 | INFO | Rate Limiting: Activado
+2026-03-02 20:14:33 | INFO | Security Headers: Activados
+2026-03-02 20:14:33 | INFO | CORS: Configurado para ['http://localhost:8000', 'http://localhost:3000']
+2026-03-02 20:14:33 | INFO | API disponible en: http://localhost:5000
+2026-03-02 20:14:33 | INFO | ==================================================
+2026-03-02 20:20:40 | INFO | ============================================================
+2026-03-02 20:20:40 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-02 20:20:40 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-02 20:20:40 | INFO | Logs de consola: Activos
+2026-03-02 20:20:40 | INFO | ============================================================
+2026-03-02 20:20:40 | INFO | ==================================================
+2026-03-02 20:20:40 | INFO | Servidor Flask iniciado
+2026-03-02 20:20:40 | INFO | Modo: Producción
+2026-03-02 20:20:40 | INFO | Rate Limiting: Activado
+2026-03-02 20:20:40 | INFO | Security Headers: Activados
+2026-03-02 20:20:40 | INFO | CORS: Configurado para ['http://localhost:8000', 'http://localhost:3000']
+2026-03-02 20:20:40 | INFO | API disponible en: http://localhost:5000
+2026-03-02 20:20:40 | INFO | ==================================================
+2026-03-02 20:24:32 | WARNING | LOGIN_FAILURE | Email: carlosss30112005@gmail.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb
+2026-03-02 20:24:36 | INFO | LOGIN_SUCCESS | Email: carlosss30112005@gmail.com | IP: 127.0.0.1 | UserAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb

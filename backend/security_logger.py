@@ -1,6 +1,5 @@
 # security_logger.py
 # Sistema de logging de seguridad (OWASP A09)
-# Optimizado para Docker con volúmenes persistentes
 
 import logging
 from logging.handlers import RotatingFileHandler
@@ -9,16 +8,21 @@ from datetime import datetime
 import sys
 
 # ============================================
-# CONFIGURACIÓN DEL LOGGER PARA DOCKER
+# CONFIGURACIÓN DEL LOGGER
 # ============================================
 
 def setup_security_logger():
     """
     Configura el sistema de logging de seguridad
-    Compatible con Docker: logs a archivo Y consola
+    Compatible con Docker Y local
     """
-    # Directorio de logs (persistente en Docker mediante volumen)
-    log_dir = os.getenv('LOG_DIR', '/app/logs')
+    # Detectar si estamos en Docker o local
+    if os.path.exists('/.dockerenv'):
+        # Estamos en Docker
+        log_dir = '/app/logs'
+    else:
+        # Estamos en local
+        log_dir = 'logs'
     
     # Crear directorio de logs si no existe
     try:
@@ -27,7 +31,7 @@ def setup_security_logger():
             print(f"✓ Directorio de logs creado: {log_dir}")
     except Exception as e:
         print(f"⚠ No se pudo crear directorio de logs: {e}")
-        log_dir = '/tmp'  # Fallback a /tmp
+        log_dir = '.'  # Fallback al directorio actual
     
     # Configurar logger principal
     logger = logging.getLogger('security')
@@ -38,7 +42,7 @@ def setup_security_logger():
         return logger
     
     # ============================================
-    # HANDLER 1: ARCHIVO (persistente via volumen)
+    # HANDLER 1: ARCHIVO
     # ============================================
     try:
         log_file = os.path.join(log_dir, 'security.log')
@@ -61,12 +65,11 @@ def setup_security_logger():
         print(f"⚠ No se pudo configurar logger de archivo: {e}")
     
     # ============================================
-    # HANDLER 2: CONSOLA (para docker logs)
+    # HANDLER 2: CONSOLA
     # ============================================
     console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setLevel(logging.INFO)  # Cambiado a INFO para ver todo
+    console_handler.setLevel(logging.INFO)
     
-    # Formato con colores para consola (opcional)
     console_formatter = logging.Formatter(
         '🔒 %(asctime)s | %(levelname)s | %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
@@ -77,8 +80,8 @@ def setup_security_logger():
     # Log de inicio
     logger.info("=" * 60)
     logger.info("SISTEMA DE LOGGING DE SEGURIDAD INICIADO")
-    logger.info(f"Logs de archivo: {log_dir}/security.log")
-    logger.info(f"Logs de consola: Activos (ver con docker-compose logs)")
+    logger.info(f"Logs de archivo: {os.path.abspath(log_file)}")
+    logger.info(f"Logs de consola: Activos")
     logger.info("=" * 60)
     
     return logger
@@ -163,23 +166,20 @@ def get_client_ip(request):
     Obtiene la IP real del cliente
     Compatible con proxies y Docker
     """
-    # Primero intentar con X-Forwarded-For (proxies)
     if request.headers.get('X-Forwarded-For'):
         return request.headers.get('X-Forwarded-For').split(',')[0].strip()
     
-    # Luego X-Real-IP
     if request.headers.get('X-Real-IP'):
         return request.headers.get('X-Real-IP').strip()
     
-    # Finalmente remote_addr
     return request.remote_addr or 'unknown'
 
 def get_user_agent(request):
     """Obtiene el User-Agent del cliente"""
-    return request.headers.get('User-Agent', 'Unknown')[:100]  # Limitar a 100 chars
+    return request.headers.get('User-Agent', 'Unknown')[:100]
 
 # ============================================
-# ANÁLISIS DE LOGS (Funcionalidad extra)
+# ANÁLISIS DE LOGS
 # ============================================
 
 def get_failed_login_attempts(email, minutes=15):
@@ -187,7 +187,6 @@ def get_failed_login_attempts(email, minutes=15):
     Cuenta intentos de login fallidos en los últimos X minutos
     (Para implementar después con Redis o base de datos)
     """
-    # TODO: Implementar con caché o BD
     return 0
 
 def analyze_suspicious_patterns():
@@ -195,19 +194,13 @@ def analyze_suspicious_patterns():
     Analiza patrones sospechosos en los logs
     (Para implementar después)
     """
-    # TODO: Implementar análisis de patrones
     pass
-
-# ============================================
-# FUNCIÓN DE UTILIDAD PARA VER LOGS
-# ============================================
 
 def tail_logs(lines=50):
     """
     Muestra las últimas N líneas del log
-    Útil para debugging
     """
-    log_file = os.path.join(os.getenv('LOG_DIR', '/app/logs'), 'security.log')
+    log_file = os.path.join('logs', 'security.log')
     try:
         with open(log_file, 'r') as f:
             all_lines = f.readlines()
