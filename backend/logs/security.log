@@ -26,3 +26,343 @@
 2026-03-02 20:20:40 | INFO | ==================================================
 2026-03-02 20:24:32 | WARNING | LOGIN_FAILURE | Email: carlosss30112005@gmail.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb
 2026-03-02 20:24:36 | INFO | LOGIN_SUCCESS | Email: carlosss30112005@gmail.com | IP: 127.0.0.1 | UserAgent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb
+2026-03-04 17:24:05 | INFO | ============================================================
+2026-03-04 17:24:05 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-04 17:24:05 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-04 17:24:05 | INFO | Logs de consola: Activos
+2026-03-04 17:24:05 | INFO | ============================================================
+2026-03-04 17:24:12 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:31 | WARNING | LOGIN_FAILURE | Email: login@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:33 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:35 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:35 | WARNING | LOGIN_FAILURE | Email:  | IP: 127.0.0.1 | Reason: Campos vacíos | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:37 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:39 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:39 | WARNING | UNAUTHORIZED_ACCESS | Endpoint: /verificar-token | IP: 127.0.0.1 | Reason: Token no proporcionado
+2026-03-04 17:24:39 | WARNING | INVALID_TOKEN | IP: 127.0.0.1
+2026-03-04 17:24:41 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:41 | WARNING | ACCOUNT_LOCKED | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 17:24:43 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:45 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:47 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:49 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:51 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:24:51 | WARNING | ACCOUNT_LOCKED | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 17:24:51 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:10 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:16 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:22 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:24 | WARNING | LOGIN_FAILURE | Email: admin' or '1'='1 | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:28 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:30 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:30 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:30 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:37 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:37 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:37 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:25:37 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:28:46 | INFO | ============================================================
+2026-03-04 17:28:46 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-04 17:28:46 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-04 17:28:46 | INFO | Logs de consola: Activos
+2026-03-04 17:28:46 | INFO | ============================================================
+2026-03-04 17:28:52 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:11 | WARNING | LOGIN_FAILURE | Email: login@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:13 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:15 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:15 | WARNING | LOGIN_FAILURE | Email:  | IP: 127.0.0.1 | Reason: Campos vacíos | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:17 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:19 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:19 | WARNING | UNAUTHORIZED_ACCESS | Endpoint: /verificar-token | IP: 127.0.0.1 | Reason: Token no proporcionado
+2026-03-04 17:29:19 | WARNING | INVALID_TOKEN | IP: 127.0.0.1
+2026-03-04 17:29:21 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:21 | WARNING | ACCOUNT_LOCKED | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 17:29:23 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:25 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:27 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:31 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:31 | WARNING | ACCOUNT_LOCKED | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 17:29:31 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:50 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:29:56 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:03 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:05 | WARNING | LOGIN_FAILURE | Email: admin' or '1'='1 | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:09 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:11 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:11 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:11 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:17 | WARNING | LOGIN_FAILURE | Email: usuario.test@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:17 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:17 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:30:17 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:18 | INFO | ============================================================
+2026-03-04 17:33:18 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-04 17:33:18 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-04 17:33:18 | INFO | Logs de consola: Activos
+2026-03-04 17:33:18 | INFO | ============================================================
+2026-03-04 17:33:18 | INFO | LOGIN_SUCCESS | Email: flujo@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:18 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:19 | INFO | LOGIN_SUCCESS | Email: login@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:19 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:19 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:19 | WARNING | LOGIN_FAILURE | Email:  | IP: 127.0.0.1 | Reason: Campos vacíos | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | UNAUTHORIZED_ACCESS | Endpoint: /verificar-token | IP: 127.0.0.1 | Reason: Token no proporcionado
+2026-03-04 17:33:20 | WARNING | INVALID_TOKEN | IP: 127.0.0.1
+2026-03-04 17:33:20 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | WARNING | ACCOUNT_LOCKED | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 17:33:20 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:20 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:21 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:21 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:21 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:21 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:21 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:22 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:22 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:22 | WARNING | LOGIN_FAILURE | Email: admin' or '1'='1 | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:22 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:23 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:23 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:23 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:23 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:23 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 17:33:23 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:28 | INFO | ============================================================
+2026-03-04 19:27:28 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-04 19:27:28 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-04 19:27:28 | INFO | Logs de consola: Activos
+2026-03-04 19:27:28 | INFO | ============================================================
+2026-03-04 19:27:28 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | INFO | LOGIN_SUCCESS | Email: login@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email:  | IP: 127.0.0.1 | Reason: Campos vacíos | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | UNAUTHORIZED_ACCESS | Endpoint: /verificar-token | IP: 127.0.0.1 | Reason: Token no proporcionado
+2026-03-04 19:27:29 | WARNING | INVALID_TOKEN | IP: 127.0.0.1
+2026-03-04 19:27:29 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:29 | WARNING | ACCOUNT_LOCKED | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 19:27:29 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:30 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:30 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:30 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:30 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:30 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:31 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:31 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:31 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:31 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:31 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:31 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:31 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:32 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:32 | WARNING | LOGIN_FAILURE | Email: admin' or '1'='1 | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:32 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:32 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:32 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:32 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:32 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:32 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:33 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:33 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:56 | INFO | ============================================================
+2026-03-04 19:27:56 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-04 19:27:56 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-04 19:27:56 | INFO | Logs de consola: Activos
+2026-03-04 19:27:56 | INFO | ============================================================
+2026-03-04 19:27:56 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | INFO | LOGIN_SUCCESS | Email: login@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email:  | IP: 127.0.0.1 | Reason: Campos vacíos | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | UNAUTHORIZED_ACCESS | Endpoint: /verificar-token | IP: 127.0.0.1 | Reason: Token no proporcionado
+2026-03-04 19:27:57 | WARNING | INVALID_TOKEN | IP: 127.0.0.1
+2026-03-04 19:27:57 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:57 | WARNING | ACCOUNT_LOCKED | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 19:27:57 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:58 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:58 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:58 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:58 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:58 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:59 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:59 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:59 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:59 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:59 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:27:59 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:59 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:59 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:27:59 | WARNING | LOGIN_FAILURE | Email: admin' or '1'='1 | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:00 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:00 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:00 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:00 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:00 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:00 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:01 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:28:01 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:15 | INFO | ============================================================
+2026-03-04 19:29:15 | INFO | SISTEMA DE LOGGING DE SEGURIDAD INICIADO
+2026-03-04 19:29:15 | INFO | Logs de archivo: C:\Users\CSS\OneDrive - Fundación Universitaria San Pablo CEU\Puesta Producción\appcoches\backend\logs\security.log
+2026-03-04 19:29:15 | INFO | Logs de consola: Activos
+2026-03-04 19:29:15 | INFO | ============================================================
+2026-03-04 19:29:15 | INFO | LOGIN_SUCCESS | Email: flujo@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:16 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:16 | INFO | LOGIN_SUCCESS | Email: login@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email:  | IP: 127.0.0.1 | Reason: Campos vacíos | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | UNAUTHORIZED_ACCESS | Endpoint: /verificar-token | IP: 127.0.0.1 | Reason: Token no proporcionado
+2026-03-04 19:29:17 | WARNING | INVALID_TOKEN | IP: 127.0.0.1
+2026-03-04 19:29:17 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:17 | WARNING | ACCOUNT_LOCKED | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Too many failed attempts
+2026-03-04 19:29:17 | WARNING | LOGIN_FAILURE | Email: lockout@test.com | IP: 127.0.0.1 | Reason: Cuenta bloqueada | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:18 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:18 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:18 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:18 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:18 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:19 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:19 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:19 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:19 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:19 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:19 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:19 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:19 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:19 | WARNING | LOGIN_FAILURE | Email: admin' or '1'='1 | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:20 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:20 | WARNING | LOGIN_FAILURE | Email: noexiste@test.com | IP: 127.0.0.1 | Reason: Usuario no existe | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:20 | WARNING | LOGIN_FAILURE | Email: admin@ejemplo.com | IP: 127.0.0.1 | Reason: Contraseña incorrecta | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:20 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:20 | INFO | LOGIN_SUCCESS | Email: usuario.test@test.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:20 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:21 | INFO | LOGIN_SUCCESS | Email: admin@ejemplo.com | IP: 127.0.0.1 | UserAgent: Werkzeug/3.1.5
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
+2026-03-04 19:29:21 | WARNING | RATE_LIMIT_EXCEEDED | Endpoint: / | IP: 127.0.0.1
