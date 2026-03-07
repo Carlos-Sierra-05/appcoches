@@ -91,14 +91,6 @@ Email: admin@ejemplo.com
 Password: admin123
 ```
 
-**Usuario normal:**
-```
-Email: carlosss30112005@gmail.com
-Password: (tu contraseña)
-```
-
----
-
 ## 📁 Estructura del proyecto
 
 ```
