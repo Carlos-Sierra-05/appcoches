@@ -12,7 +12,7 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 ## 📸 Capturas de pantalla
 
 ### Login
-![Login](Imagenes%20App/Login.png)
+![Login](ImagenesApp/Login.png)
 
 ### Registro
 ![Registro](Imagenes%20App/Registro.png)
