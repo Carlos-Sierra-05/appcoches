@@ -1,528 +1,306 @@
 # 🚗 AppCoches
 
-Aplicación web completa para la gestión y visualización de un catálogo de coches. Proyecto académico desarrollado con Python Flask (backend) y HTML/CSS/JavaScript (frontend), totalmente dockerizado.
+Aplicación web full-stack para la gestión de un catálogo de coches con autenticación JWT, control de acceso basado en roles y protección contra vulnerabilidades OWASP Top 10:2025.
+
+[![CI/CD](https://img.shields.io/badge/CI/CD-passing-brightgreen)](https://github.com)
+[![Security](https://img.shields.io/badge/OWASP-Top%2010%20Protected-blue)](https://owasp.org)
+[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue)](https://www.docker.com/)
 
 ---
 
-## 📋 Tabla de Contenidos
+## 📋 Características
 
-- [Características](#-características)
-- [Tecnologías](#️-tecnologías)
-- [Arquitectura](#-arquitectura)
-- [Requisitos Previos](#-requisitos-previos)
-- [Instalación](#-instalación)
-  - [Opción 1: Con Docker (Recomendado)](#opción-1-con-docker-recomendado)
-  - [Opción 2: Sin Docker (Desarrollo Local)](#opción-2-sin-docker-desarrollo-local)
-- [Uso](#-uso)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [API Endpoints](#-api-endpoints)
-- [Base de Datos](#️-base-de-datos)
-- [Funcionalidades](#-funcionalidades)
-- [Solución de Problemas](#-solución-de-problemas)
-
----
-
-## ✨ Características
-
-- 🔐 **Sistema de autenticación** con JWT (JSON Web Tokens)
-- 👤 **Dos roles de usuario**: Administrador y Usuario
-- 🚗 **Gestión completa de coches** (CRUD) para administradores
-- 🔍 **Filtros avanzados** de búsqueda (marca, modelo, año, precio)
-- 📊 **Estadísticas** en tiempo real del catálogo
-- 📸 **Subida y gestión de imágenes** para cada coche
-- 🎨 **Interfaz responsive** y moderna
-- 🐳 **Totalmente dockerizado** para fácil despliegue
-- 💾 **Persistencia de datos** con MySQL
+- 🔐 **Autenticación JWT** con bcrypt y expiración de tokens
+- 👥 **Roles de usuario** (Admin/Usuario) con control de acceso
+- 🚗 **CRUD completo** de coches (solo admins)
+- 🔍 **Filtros avanzados** por marca, modelo, año y precio
+- 📊 **Estadísticas** del catálogo en tiempo real
+- 📸 **Gestión de imágenes** con validación y almacenamiento
+- 🛡️ **Seguridad OWASP** (Top 10:2025 compliant)
+- 🐳 **Dockerizado** para fácil despliegue
+- 🧪 **82 tests** automatizados con pytest
+- 📝 **Logging de seguridad** completo
 
 ---
 
 ## 🛠️ Tecnologías
 
-### Backend
-- **Python 3.11**
-- **Flask** - Framework web
-- **MySQL** - Base de datos
-- **JWT** - Autenticación con tokens
-- **SHA-256** - Encriptación de contraseñas
+**Backend:**
+- Python 3.11 + Flask
+- MySQL 8.0
+- JWT + bcrypt
+- Flask-Limiter (rate limiting)
 
-### Frontend
-- **HTML5**
-- **CSS3** (con diseño moderno y gradientes)
-- **JavaScript** (Vanilla JS)
-- **Fetch API** - Comunicación con el backend
+**Frontend:**
+- HTML5 + CSS3 + JavaScript
+- Diseño responsive moderno
 
-### DevOps
-- **Docker** - Containerización
-- **Docker Compose** - Orquestación de contenedores
+**DevOps:**
+- Docker + Docker Compose
+- GitHub Actions (CI/CD)
+- Pytest (82 tests unitarios)
 
 ---
 
-## 🏗️ Arquitectura
+## 🚀 Inicio rápido
 
-El proyecto utiliza una arquitectura de **microservicios con 2 contenedores**:
-
-```
-┌─────────────────────────────────────┐
-│     Contenedor 1: Aplicación       │
-│  ┌──────────────┐ ┌──────────────┐ │
-│  │   Backend    │ │   Frontend   │ │
-│  │  Flask:5000  │ │   HTTP:8000  │ │
-│  └──────────────┘ └──────────────┘ │
-└─────────────────────────────────────┘
-                 ↕
-┌─────────────────────────────────────┐
-│     Contenedor 2: Base de Datos    │
-│         MySQL 8.0 :3306            │
-└─────────────────────────────────────┘
-```
-
----
-
-## 📦 Requisitos Previos
-
-### Para Docker (Recomendado):
-- [Docker Desktop](https://www.docker.com/products/docker-desktop) instalado
-- 4GB RAM mínimo
-- Puertos libres: 3306, 5000, 8000
-
-### Para desarrollo local:
-- Python 3.11 o superior
-- MySQL 8.0 o superior (XAMPP/WAMP)
-- pip (gestor de paquetes de Python)
-
----
-
-## 🚀 Instalación
-
-### Opción 1: Con Docker (Recomendado)
-
-#### 1. Clonar o descargar el proyecto
+### Con Docker (Recomendado)
 
 ```bash
-git clone <url-del-repositorio>
+# 1. Clonar el repositorio
+git clone <url-repositorio>
 cd appcoches
-```
 
-#### 2. Estructura de carpetas
-
-Asegúrate de tener esta estructura:
-
-```
-appcoches/
-├── backend/
-│   ├── app.py
-│   ├── config.py
-│   ├── database.py
-│   ├── registro.py
-│   ├── login.py
-│   ├── coches.py
-│   ├── requirements.txt
-│   └── uploads/          (se crea automáticamente)
-├── frontend/
-│   ├── login.html
-│   ├── registro.html
-│   └── coches.html
-└── docker/
-    ├── Dockerfile
-    ├── docker-compose.yml
-    ├── start.sh
-    ├── init.sql
-    └── .dockerignore
-```
-
-#### 3. Detener servicios locales
-
-Si tienes XAMPP o WAMP corriendo, **deténlos** para liberar los puertos.
-
-#### 4. Levantar los contenedores
-
-Desde la carpeta `docker/`:
-
-```bash
+# 2. Levantar contenedores
 cd docker
 docker-compose up -d
+
+# 3. Acceder a la aplicación
+# Frontend: http://localhost:8000/login.html
+# Backend API: http://localhost:5000
 ```
 
-#### 5. Verificar que está corriendo
+### Sin Docker (Desarrollo local)
 
 ```bash
-docker-compose ps
-```
-
-Deberías ver:
-
-```
-NAME                STATUS              PORTS
-appcoches-mysql     Up                  0.0.0.0:3306->3306/tcp
-appcoches-app       Up                  0.0.0.0:5000->5000/tcp, 0.0.0.0:8000->8000/tcp
-```
-
-#### 6. Acceder a la aplicación
-
-Abre tu navegador y ve a:
-
-```
-http://localhost:8000/login.html
-```
-
----
-
-### Opción 2: Sin Docker (Desarrollo Local)
-
-#### 1. Instalar dependencias
-
-Desde la carpeta `backend/`:
-
-```bash
+# 1. Instalar dependencias
 cd backend
-python -m pip install -r requirements.txt
-```
+pip install -r requirements.txt
 
-#### 2. Configurar MySQL
+# 2. Configurar MySQL (XAMPP/WAMP)
+# Ejecutar docker/init.sql en phpMyAdmin
 
-- Inicia XAMPP o WAMP
-- Abre phpMyAdmin: `http://localhost/phpmyadmin`
-- Ejecuta el script SQL que está en `docker/init.sql`
-
-#### 3. Actualizar configuración
-
-Edita `backend/config.py`:
-
-```python
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'tu_contraseña',  # Tu contraseña de MySQL
-    'database': 'appcoches',
-    'charset': 'utf8mb4'
-}
-```
-
-#### 4. Iniciar backend
-
-```bash
-cd backend
+# 3. Iniciar backend
 python app.py
-```
 
-#### 5. Iniciar frontend
-
-En otra terminal:
-
-```bash
+# 4. Iniciar frontend (en otra terminal)
 cd frontend
 python -m http.server 8000
-```
 
-#### 6. Acceder a la aplicación
-
-```
-http://localhost:8000/login.html
+# 5. Abrir http://localhost:8000/login.html
 ```
 
 ---
 
-## 💻 Uso
+## 🔑 Credenciales por defecto
 
-### Credenciales por defecto
-
-#### Administrador:
+**Administrador:**
 ```
 Email: admin@ejemplo.com
 Password: admin123
 ```
 
-
-### Flujo de uso
-
-1. **Login**: Inicia sesión con las credenciales
-2. **Visualización**: Todos los usuarios pueden ver el catálogo de coches
-3. **Filtros**: Usa los filtros para buscar coches específicos
-4. **Administración** (solo admin):
-   - Añadir nuevos coches con imagen
-   - Editar coches existentes
-   - Eliminar coches del catálogo
+**Usuario normal:**
+```
+Email: carlosss30112005@gmail.com
+Password: (tu contraseña)
+```
 
 ---
 
-## Estructura del Proyecto
+## 📁 Estructura del proyecto
 
 ```
 appcoches/
+├── backend/                  # API Flask
+│   ├── tests/               # Tests unitarios (82)
+│   ├── logs/                # Logs de seguridad
+│   ├── uploads/             # Imágenes de coches
+│   ├── app.py              # Aplicación principal
+│   ├── config.py           # Configuración
+│   ├── database.py         # Conexión MySQL
+│   ├── login.py            # Autenticación
+│   ├── registro.py         # Registro de usuarios
+│   ├── coches.py           # CRUD de coches
+│   ├── security_logger.py  # Sistema de logging
+│   └── requirements.txt    # Dependencias
 │
-├── backend/                    # Backend Flask
-│   ├── app.py                 # Aplicación principal
-│   ├── config.py              # Configuración (BD, JWT)
-│   ├── database.py            # Gestión de conexión MySQL
-│   ├── registro.py            # Endpoint de registro
-│   ├── login.py               # Endpoint de login y JWT
-│   ├── coches.py              # CRUD de coches
-│   ├── requirements.txt       # Dependencias Python
-│   └── uploads/               # Imágenes de coches
-│       └── coches/
+├── frontend/                # Interfaz de usuario
+│   ├── login.html
+│   ├── registro.html
+│   └── coches.html
 │
-├── frontend/                   # Frontend HTML/CSS/JS
-│   ├── login.html             # Página de inicio de sesión
-│   ├── registro.html          # Página de registro
-│   └── coches.html            # Página principal (catálogo)
+├── docker/                  # Configuración Docker
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── init.sql            # BD inicial con datos
+│   └── start.sh
 │
-└── docker/                     # Configuración Docker
-    ├── Dockerfile             # Imagen de la aplicación
-    ├── docker-compose.yml     # Orquestación
-    ├── start.sh               # Script de inicio
-    ├── init.sql               # Script de BD inicial
-    └── .dockerignore          # Archivos a ignorar
+└── README.md
 ```
 
 ---
 
 ## 🌐 API Endpoints
 
-### Autenticación
-
-| Método | Endpoint | Descripción | Auth |
-|--------|----------|-------------|------|
-| POST | `/api/registro` | Registrar nuevo usuario | No |
-| POST | `/api/login` | Iniciar sesión (devuelve JWT) | No |
-| GET | `/api/verificar-token` | Verificar validez del token | Sí |
-
-### Coches
-
-| Método | Endpoint | Descripción | Auth | Admin |
-|--------|----------|-------------|------|-------|
-| GET | `/api/coches` | Listar todos los coches (con filtros) | No | No |
-| GET | `/api/coches/:id` | Obtener un coche específico | No | No |
-| POST | `/api/coches` | Crear nuevo coche | Sí | Sí |
-| PUT | `/api/coches/:id` | Editar coche existente | Sí | Sí |
-| DELETE | `/api/coches/:id` | Eliminar coche | Sí | Sí |
-| GET | `/api/marcas` | Listar marcas disponibles | No | No |
-| GET | `/api/estadisticas` | Obtener estadísticas del catálogo | No | No |
-| GET | `/api/uploads/:filename` | Obtener imagen de coche | No | No |
-
-### Filtros disponibles (GET /api/coches)
-
-- `marca`: Filtrar por marca (búsqueda parcial)
-- `modelo`: Filtrar por modelo (búsqueda parcial)
-- `año_min`: Año mínimo
-- `año_max`: Año máximo
-- `precio_min`: Precio mínimo
-- `precio_max`: Precio máximo
-- `ordenar`: Campo de ordenación (marca, modelo, año, precio)
-- `orden`: Dirección (ASC o DESC)
-
-**Ejemplo:**
+### Públicos (sin autenticación)
 ```
-GET /api/coches?marca=BMW&precio_max=30000&ordenar=precio&orden=ASC
+GET  /api/coches              # Listar coches (con filtros)
+GET  /api/coches/:id          # Obtener un coche
+GET  /api/marcas              # Lista de marcas
+GET  /api/estadisticas        # Estadísticas del catálogo
+POST /api/registro            # Registrar usuario
+POST /api/login               # Iniciar sesión
 ```
+
+### Protegidos (requieren admin)
+```
+POST   /api/coches            # Crear coche
+PUT    /api/coches/:id        # Editar coche
+DELETE /api/coches/:id        # Eliminar coche
+```
+
+**Filtros disponibles:**
+- `?marca=BMW` - Filtrar por marca
+- `?precio_min=20000` - Precio mínimo
+- `?precio_max=30000` - Precio máximo
+- `?año_min=2020` - Año mínimo
+- `?ordenar=precio&orden=DESC` - Ordenar
 
 ---
 
-## 🗄️ Base de Datos
+## 🧪 Tests
 
-### Tabla: `usuarios`
+```bash
+# Ejecutar todos los tests
+cd backend
+pytest
 
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| id | INT | ID único (auto-increment) |
-| nombre | VARCHAR(100) | Nombre completo |
-| email | VARCHAR(100) | Email único |
-| password | VARCHAR(255) | Contraseña encriptada (SHA-256) |
-| rol | ENUM('admin','usuario') | Rol del usuario |
-| fecha_registro | TIMESTAMP | Fecha de creación |
+# Tests por categoría
+pytest -m auth          # Tests de autenticación (24)
+pytest -m security      # Tests de seguridad (22)
+pytest tests/test_coches.py  # Tests de CRUD (20)
 
-### Tabla: `coches`
+# Con cobertura
+pytest --cov=. --cov-report=html
+```
 
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| id | INT | ID único (auto-increment) |
-| marca | VARCHAR(50) | Marca del coche |
-| modelo | VARCHAR(50) | Modelo del coche |
-| año | INT | Año de fabricación |
-| precio | DECIMAL(10,2) | Precio en euros |
-| descripcion | TEXT | Descripción detallada |
-| imagen | VARCHAR(255) | Nombre del archivo de imagen |
+**Total: 82 tests automatizados**
 
 ---
 
-## 🎯 Funcionalidades
+## 🛡️ Seguridad (OWASP Top 10:2025)
 
-### Para todos los usuarios:
-- ✅ Ver catálogo completo de coches
-- ✅ Filtrar por marca, modelo, año y precio
-- ✅ Ordenar resultados
-- ✅ Ver detalles de cada coche
-- ✅ Ver estadísticas del catálogo
-- ✅ Registrarse en el sistema
-- ✅ Iniciar sesión
-
-### Para administradores:
-- ✅ Todas las funcionalidades de usuario
-- ✅ Añadir nuevos coches con imagen
-- ✅ Editar información de coches
-- ✅ Cambiar imagen de un coche
-- ✅ Eliminar coches del catálogo
-- ✅ Badge visual "ADMIN" en la interfaz
+✅ **A01 - Broken Access Control:** Decoradores `@requiere_admin`, verificación de roles  
+✅ **A02 - Security Misconfiguration:** Headers de seguridad (HSTS, CSP, etc.), debug mode controlado  
+✅ **A03 - Supply Chain:** Versiones fijas en requirements.txt  
+✅ **A04 - Cryptographic Failures:** bcrypt (12 rondas), tokens JWT con expiración  
+✅ **A05 - Injection:** Queries parametrizadas, validación de entrada  
+✅ **A06 - Insecure Design:** Rate limiting, validaciones robustas  
+✅ **A07 - Authentication Failures:** Bloqueo de cuenta (5 intentos), contraseñas robustas  
+✅ **A08 - Data Integrity:** Validación de archivos, límites de tamaño  
+✅ **A09 - Logging Failures:** Sistema completo de logs de seguridad  
+✅ **A10 - Exception Handling:** Manejadores de error centralizados  
 
 ---
 
 ## 🐳 Comandos Docker
 
-### Iniciar la aplicación
 ```bash
+# Iniciar
 docker-compose up -d
-```
 
-### Ver logs en tiempo real
-```bash
+# Ver logs
 docker-compose logs -f
-```
 
-### Ver logs de un contenedor específico
-```bash
-docker-compose logs -f app    # Backend + Frontend
-docker-compose logs -f db     # MySQL
-```
-
-### Ver estado de los contenedores
-```bash
-docker-compose ps
-```
-
-### Detener la aplicación
-```bash
+# Detener
 docker-compose down
-```
 
-### Detener y eliminar volúmenes (¡borra la BD!)
-```bash
-docker-compose down -v
-```
-
-### Reiniciar la aplicación
-```bash
+# Reiniciar
 docker-compose restart
-```
 
-### Reconstruir las imágenes
-```bash
+# Reconstruir
 docker-compose up --build
-```
-
-### Acceder al contenedor de la aplicación
-```bash
-docker exec -it appcoches-app bash
-```
-
-### Acceder a MySQL desde línea de comandos
-```bash
-docker exec -it appcoches-mysql mysql -u root -pAppCoches9393 appcoches
 ```
 
 ---
 
-## 🔧 Solución de Problemas
+## 📊 Base de datos
+
+**Tablas:**
+- `usuarios` - Usuarios del sistema (admin/usuario)
+- `coches` - Catálogo de coches
+
+**Datos iniciales:**
+- 2 usuarios (1 admin, 1 usuario)
+- 12 coches de ejemplo
+
+---
+
+## 🔧 Configuración
+
+### Variables de entorno (opcional)
+
+Crear archivo `.env` en `backend/`:
+
+```env
+# Base de datos
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=tu_password
+DB_NAME=appcoches
+
+# Seguridad
+SECRET_KEY=tu_clave_secreta_aqui
+JWT_EXPIRATION_HOURS=2
+
+# Rate Limiting
+RATE_LIMIT_LOGIN=5 per minute
+RATE_LIMIT_API=100 per minute
+```
+
+---
+
+## 🚨 Solución de problemas
 
 ### Puerto ocupado
-
-**Problema:** `Error: port is already allocated`
-
-**Solución:**
-- Detén XAMPP/WAMP si está corriendo
-- Verifica puertos en uso:
-  ```bash
-  # Windows
-  netstat -ano | findstr :3306
-  netstat -ano | findstr :5000
-  netstat -ano | findstr :8000
-  ```
-
-### Error de conexión a MySQL
-
-**Problema:** `Can't connect to MySQL server`
-
-**Solución:**
-- Espera unos segundos, MySQL tarda en inicializarse
-- Verifica logs: `docker-compose logs db`
-- Reinicia: `docker-compose restart db`
-
-### Los cambios no se reflejan
-
-**Problema:** Edité el código pero no veo los cambios
-
-**Solución:**
 ```bash
-docker-compose down
-docker-compose up --build
+# Detener XAMPP/WAMP antes de usar Docker
+# O cambiar puertos en docker-compose.yml
 ```
 
-### Error al subir imágenes
-
-**Problema:** Las imágenes no se suben o no se ven
-
-**Solución:**
-- Verifica que la carpeta `backend/uploads/coches/` exista
-- Verifica permisos de escritura
-- Tamaño máximo: 5MB por imagen
-- Formatos soportados: JPG, PNG, GIF, WEBP
-
-### Contenedor no inicia
-
-**Problema:** `Container exited with code 1`
-
-**Solución:**
+### Error de conexión MySQL
 ```bash
-# Ver logs detallados
-docker-compose logs app
-
-# Verificar que todos los archivos estén en su lugar
-ls -la backend/
-ls -la frontend/
-ls -la docker/
+# Verificar que MySQL esté corriendo
+docker-compose logs db
 ```
 
-### Olvidé mi contraseña
+### Token expirado
+```
+# Los tokens expiran en 2 horas
+# Vuelve a hacer login
+```
 
-**Problema:** No puedo iniciar sesión
-
-**Solución:**
+### Tests fallan
 ```bash
-# Acceder a MySQL
-docker exec -it appcoches-mysql mysql -u root -pAppCoches9393 appcoches
-
-# Actualizar contraseña (desde MySQL)
-UPDATE usuarios SET password = SHA2('nueva_contraseña', 256) WHERE email = 'tu@email.com';
-exit;
+# Verificar que estés en backend/
+cd backend
+pytest
 ```
 
 ---
 
-## 📊 Datos de Ejemplo
+## 📚 Documentación adicional
 
-La aplicación viene pre-cargada con:
-
-- **2 usuarios**: 1 administrador y 1 usuario normal
-- **12 coches** de diferentes marcas:
-  - Audi S5 Coupé (2012) - 26.000€
-  - BMW 335i Coupé (2007) - 17.000€
-  - BMW M5 E60 (2006) - 30.000€
-  - Volvo XC60 B4 (2023) - 40.000€
-  - Volkswagen Scirocco R (2009) - 13.500€
-  - Volkswagen Golf R32 (2008) - 15.000€
-  - Audi S8 D3 (2006) - 23.000€
-  - Seat Arona (2024) - 26.000€
-  - Opel Corsa (2021) - 10.500€
-  - Mercedes-Benz CLS 400 (2016) - 27.600€
-  - BMW X6 (2014) - 26.000€
-  - Seat Ibiza (2018) - 12.100€
+- **[SEGURIDAD_OWASP.md](SEGURIDAD_OWASP.md)** - Detalles de protecciones OWASP
+- **[GITHUB_ACTIONS.md](GITHUB_ACTIONS.md)** - Guía de CI/CD
+- **[TESTS_README.md](TESTS_README.md)** - Documentación de tests
+- **[POSTMAN_GUIDE.md](POSTMAN_GUIDE.md)** - Colección de Postman
 
 ---
 
-## 🔒 Seguridad
+## 🎓 Proyecto académico
 
-- Contraseñas encriptadas con **SHA-256**
-- Autenticación mediante **JWT** con expiración de 24 horas
-- Validación de roles en el backend
-- CORS configurado para desarrollo
-- Subida de archivos con validación de tipo y tamaño
-- Prevención de SQL injection con queries parametrizadas
+Desarrollado como proyecto académico para demostrar:
+- Arquitectura cliente-servidor
+- API RESTful con autenticación JWT
+- CRUD completo con control de acceso
+- Seguridad según OWASP Top 10:2025
+- Dockerización de aplicaciones
+- Testing automatizado
+- CI/CD con GitHub Actions
 
+---
+
+**🚀 ¡Listo para usar!** Accede a [http://localhost:8000/login.html](http://localhost:8000/login.html)
