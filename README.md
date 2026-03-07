@@ -9,25 +9,6 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 
 ---
 
-## 📸 Capturas de pantalla
-
-### Login
-![Login](ImagenesApp/Login.png)
-
-### Registro
-![Registro](Imagenes%20App/Registro.png)
-
-### Vista Admin
-![Vista Admin](Imagenes%20App/Admin.png)
-
-### Añadir Coche
-![Añadir Coche](Imagenes%20App/Añadir_Coche.png)
-
-### Vista Usuario
-![Vista Usuario](Imagenes%20App/Usuario.png)
-
----
-
 ## 📋 Características
 
 - 🔐 **Autenticación JWT** con bcrypt y expiración de tokens
@@ -162,6 +143,8 @@ appcoches/
 │   └── Añadir_Coche.png
 │
 ├── README.md               # Este archivo
+├── bbdd.sql
+├── APP-COCHES.postman_collection.json
 ```
 
 ---
