@@ -23,7 +23,6 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 - 📝 **Logging de seguridad** completo
 
 ---
-<img width="1875" height="865" alt="Registro" src="https://github.com/user-attachments/assets/0a0550c4-060b-4dcb-805e-6bd5ee8be786" />
 
 ## 🛠️ Tecnologías
 
