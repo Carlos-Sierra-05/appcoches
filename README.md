@@ -111,13 +111,7 @@ DELETE /api/coches/:id        # Eliminar
 
 ---
 
-## 🧪 Tests - 82 automatizados
-
-**Distribución por archivo:**
-- `test_auth.py`: **24 tests** - Registro, login, tokens, bloqueo de cuenta
-- `test_coches.py`: **20 tests** - CRUD, permisos, validaciones
-- `test_security.py`: **22 tests** - Headers, SQL injection, rate limit
-- `test_api.py`: **16 tests** - Endpoints básicos, errores, CORS
+## 🧪 Tests - 73 automatizados
 
 **Ejecutar:**
 ```bash
@@ -127,6 +121,7 @@ pytest -m auth           # Solo autenticación (24)
 pytest -m security       # Solo seguridad (22)
 pytest --cov=.           # Con cobertura
 ```
+<img width="1362" height="376" alt="cap pruebas pytest" src="https://github.com/user-attachments/assets/01781e4a-c037-4b1c-a6f5-acf6813f89f7" />
 
 ---
 
