@@ -24,7 +24,7 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 - 🔍 **Filtros avanzados** por marca, modelo, año, precio
 - 🛡️ **OWASP Top 10:2025** - 10/10 protegido
 - 🐳 **Dockerizado** - 2 contenedores (MySQL + App)
-- 🧪 **82 tests** automatizados con pytest
+- 🧪 **73 tests** automatizados con pytest
 - 📝 **Logging** completo de seguridad
 - ⚡ **Rate limiting** y bloqueo de cuenta (5 intentos)
 
@@ -116,9 +116,9 @@ DELETE /api/coches/:id        # Eliminar
 **Ejecutar:**
 ```bash
 cd backend
-pytest                    # Todos (82)
-pytest -m auth           # Solo autenticación (24)
-pytest -m security       # Solo seguridad (22)
+pytest                    # Todos
+pytest -m auth           # Solo autenticación
+pytest -m security       # Solo seguridad
 pytest --cov=.           # Con cobertura
 ```
 <img width="1362" height="376" alt="cap pruebas pytest" src="https://github.com/user-attachments/assets/01781e4a-c037-4b1c-a6f5-acf6813f89f7" />
@@ -210,6 +210,8 @@ docker-compose restart        # Reiniciar
 **Datos iniciales:**
 - 2 usuarios (1 admin, 1 usuario)
 - 12 coches (Audi, BMW, Mercedes, Volvo, VW, Seat, Opel)
+  
+<img width="547" height="255" alt="cap bbdd" src="https://github.com/user-attachments/assets/8dc68eb8-3e1e-4919-b855-1d3720ad0e9d" />
 
 ---
 
@@ -217,7 +219,7 @@ docker-compose restart        # Reiniciar
 
 **GitHub Actions** (`.github/workflows/ci-cd.yml`):
 1. Validar sintaxis Python (flake8)
-2. Ejecutar 82 tests (pytest + MySQL)
+2. Ejecutar 73 tests (pytest + MySQL)
 3. Validar estructura proyecto
 4. Escaneo seguridad (Safety + Bandit)
 
@@ -239,7 +241,7 @@ docker-compose restart        # Reiniciar
 Demuestra:
 ✅ API RESTful con JWT  
 ✅ Seguridad OWASP Top 10:2025 (10/10)  
-✅ Testing (82 tests)  
+✅ Testing (73 tests)  
 ✅ Dockerización  
 ✅ CI/CD  
 ✅ RBAC (roles)  
