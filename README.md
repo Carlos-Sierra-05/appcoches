@@ -11,10 +11,8 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 
 ## 📸 Capturas de pantalla
 
-<!-- Añadir capturas aquí -->
-<!-- ![Login](Imagenes%20App/Login.png) -->
-<!-- ![Admin](Imagenes%20App/Admin.png) -->
-<!-- ![Usuario](Imagenes%20App/Usuario.png) -->
+<img width="993" height="865" alt="Admin" src="https://github.com/user-attachments/assets/f910d3d8-eb8d-49e5-b458-381e1647378d" />
+
 
 ---
 
