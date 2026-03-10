@@ -224,6 +224,7 @@ docker-compose restart        # Reiniciar
 4. Escaneo seguridad (Safety + Bandit)
 
 **Triggers:** Push a main/master/develop, Pull Requests
+<img width="1445" height="282" alt="image" src="https://github.com/user-attachments/assets/2f789b4c-f9c2-4bf6-8c29-aa2ed8a31efd" />
 
 ---
 
