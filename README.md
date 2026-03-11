@@ -248,6 +248,7 @@ docker-compose ps             # Estado
 docker-compose down           # Detener
 docker-compose restart        # Reiniciar
 ```
+<img width="1626" height="188" alt="image" src="https://github.com/user-attachments/assets/298357cd-dbfe-4844-a504-c4866024bdc7" />
 
 ---
 
