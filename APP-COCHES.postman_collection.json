@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "3b10de39-f1fa-44e7-854c-b9832ad663d1",
+    "_postman_id": "23e8bdba-2df0-4ba3-8d91-e7be6f61abe2",
     "name": "APP-COCHES",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "52312459",
-    "_collection_link": "https://go.postman.co/collection/52312459-3b10de39-f1fa-44e7-854c-b9832ad663d1?source=collection_link"
+    "_collection_link": "https://go.postman.co/collection/52312459-23e8bdba-2df0-4ba3-8d91-e7be6f61abe2?source=collection_link"
   },
   "item": [
     {
@@ -614,6 +614,241 @@
           "path": [
             "api",
             "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CREAR COCHE",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"✅ Status code 201 o 403\", function () {\r",
+              "    pm.expect([201,403]).to.include(pm.response.code);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "\r",
+              "if (pm.response.code === 201) {\r",
+              "\r",
+              "    pm.test(\"✅ Coche creado correctamente\", function () {\r",
+              "        pm.expect(jsonData.success).to.be.true;\r",
+              "        pm.expect(jsonData).to.have.property(\"coche_id\");\r",
+              "    });\r",
+              "\r",
+              "    pm.environment.set(\"ultimo_coche_id\", jsonData.coche_id);\r",
+              "\r",
+              "    console.log(\"🚗 Coche creado con ID:\", jsonData.coche_id);\r",
+              "\r",
+              "}\r",
+              "\r",
+              "if (pm.response.code === 403) {\r",
+              "\r",
+              "    pm.test(\"⛔ Solo admin puede crear coches\", function () {\r",
+              "        pm.expect(jsonData.success).to.be.false;\r",
+              "    });\r",
+              "\r",
+              "    console.log(\"❌ Usuario sin permisos\");\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NzMyNDEwOTgsImV4cCI6MTc3MzI0ODI5OH0.ZmiC9bFC1LaS9Dg9raYJlcXVW0ehKVKyb74Gaz172uQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"marca\": \"Porsche\",\r\n  \"modelo\": \"911 Carrera\",\r\n  \"año\": 2022,\r\n  \"precio\": 125000,\r\n  \"descripcion\": \"Deportivo alemán de alto rendimiento\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/coches",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "coches"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EDITAR COCHE",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"✅ Status code 200 o 403\", function () {\r",
+              "    pm.expect([200,403]).to.include(pm.response.code);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    pm.test(\"✅ Coche actualizado\", function () {\r",
+              "        pm.expect(jsonData.success).to.be.true;\r",
+              "    });\r",
+              "\r",
+              "    console.log(\"✏️ Coche actualizado correctamente\");\r",
+              "\r",
+              "}\r",
+              "\r",
+              "if (pm.response.code === 403) {\r",
+              "\r",
+              "    pm.test(\"⛔ Solo admin puede editar\", function () {\r",
+              "        pm.expect(jsonData.success).to.be.false;\r",
+              "    });\r",
+              "\r",
+              "    console.log(\"❌ Permisos insuficientes\");\r",
+              "\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NzMyNDEwOTgsImV4cCI6MTc3MzI0ODI5OH0.ZmiC9bFC1LaS9Dg9raYJlcXVW0ehKVKyb74Gaz172uQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"marca\": \"Porsche\",\r\n  \"modelo\": \"911 Carrera\",\r\n  \"año\": 2022,\r\n  \"precio\": 119000,\r\n  \"descripcion\": \"Precio actualizado\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/coches/21",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "coches",
+            "21"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "ELIMINAR COCHE",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"✅ Status code 200 o 403\", function () {\r",
+              "    pm.expect([200,403]).to.include(pm.response.code);\r",
+              "});\r",
+              "\r",
+              "var jsonData = pm.response.json();\r",
+              "\r",
+              "if (pm.response.code === 200) {\r",
+              "\r",
+              "    pm.test(\"✅ Coche eliminado\", function () {\r",
+              "        pm.expect(jsonData.success).to.be.true;\r",
+              "    });\r",
+              "\r",
+              "    console.log(\"🗑️ Coche eliminado correctamente\");\r",
+              "\r",
+              "}\r",
+              "\r",
+              "if (pm.response.code === 403) {\r",
+              "\r",
+              "    pm.test(\"⛔ Solo admin puede eliminar\", function () {\r",
+              "        pm.expect(jsonData.success).to.be.false;\r",
+              "    });\r",
+              "\r",
+              "    console.log(\"❌ Usuario sin permisos\");\r",
+              "\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJlbWFpbCI6ImFkbWluQGVqZW1wbG8uY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NzMyNDEwOTgsImV4cCI6MTc3MzI0ODI5OH0.ZmiC9bFC1LaS9Dg9raYJlcXVW0ehKVKyb74Gaz172uQ",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/coches/20",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "coches",
+            "20"
           ]
         }
       },
