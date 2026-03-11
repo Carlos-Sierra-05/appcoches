@@ -5,7 +5,7 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 [![CI/CD](https://img.shields.io/badge/CI/CD-passing-brightgreen)](https://github.com)
 [![Security](https://img.shields.io/badge/OWASP-Top%2010%20Protected-blue)](https://owasp.org)
 [![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/Tests-82%20passing-brightgreen)](https://pytest.org)
+[![Tests](https://img.shields.io/badge/Tests-73%20passing-brightgreen)](https://pytest.org)
 
 ---
 
