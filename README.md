@@ -265,7 +265,7 @@ docker-compose restart        # Reiniciar
 
 ---
 
-## 🔄 CI/CD
+## 🔄 CI/CD GitHub Actions
 
 **GitHub Actions** (`.github/workflows/ci-cd.yml`):
 1. Validar sintaxis Python (flake8)
