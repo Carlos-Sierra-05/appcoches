@@ -215,23 +215,163 @@ APP-COCHES.postman_collection.json
 | **A09** | Logging Failures | 12 eventos logueados (login, admin actions, errors), rotación 10MB |
 | **A10** | Exception Handling | Manejadores específicos 400/401/403/404/500, mensajes genéricos |
 
-**Ejemplos de protecciones:**
+**Ejemplos de protecciones implementadas en el código:**
 
 ```python
-# A04 - bcrypt
+# A01 - Broken Access Control (coches.py)
+def requiere_admin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+        
+        # Verificar que sea admin
+        if payload.get('rol') != 'admin':
+            return jsonify({
+                'success': False,
+                'message': 'Acceso denegado. Se requieren permisos de administrador'
+            }), 403
+        return f(*args, **kwargs)
+    return decorated_function
+
+# A02 - Security Misconfiguration (app.py + config.py)
+@app.after_request
+def add_security_headers(response):
+    for header, value in SECURITY_HEADERS.items():
+        response.headers[header] = value
+    response.headers['Server'] = 'AppCoches'  # Ocultar info servidor
+    return response
+
+SECURITY_HEADERS = {
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'X-XSS-Protection': '1; mode=block'
+}
+
+# A03 - Supply Chain Failures (requirements.txt)
+Flask==3.0.0
+flask-cors==4.0.0
+mysql-connector-python==8.2.0
+PyJWT==2.8.0
+bcrypt==4.1.2
+Flask-Limiter==3.5.0
+
+# A04 - Cryptographic Failures (registro.py + login.py)
+# Registro con bcrypt
 salt = bcrypt.gensalt(rounds=12)
 password_hash = bcrypt.hashpw(password.encode('utf-8'), salt)
 
-# A07 - Bloqueo de cuenta
-if failed_attempts[email]['count'] >= 5:
-    locked_accounts[email] = time.time()
-    return "Bloqueada 15 min", 429
+# Token JWT con expiración 2h
+def generar_token(user_id, email, rol):
+    payload = {
+        'user_id': user_id,
+        'email': email,
+        'rol': rol,
+        'exp': datetime.utcnow() + timedelta(hours=2)
+    }
+    return jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
-# A09 - Logging
-log_login_failure(email, ip, "Usuario no existe", user_agent)
+# A05 - Injection (coches.py)
+# Query parametrizada
+query = "SELECT * FROM coches WHERE 1=1"
+params = []
+if marca:
+    query += " AND marca LIKE %s"
+    params.append(f"%{marca}%")
+if precio_min:
+    query += " AND precio >= %s"
+    params.append(precio_min)
+
+coches = execute_query(query, tuple(params), fetch=True)
+
+# A06 - Insecure Design (app.py + coches.py)
+# Rate limiting
+limiter = Limiter(
+    app=app,
+    default_limits=['100 per minute']
+)
+
+@login_bp.route('/login')
+@limiter.limit("5 per minute")
+def iniciar_sesion():
+    # Validaciones de negocio
+    if año < 1900 or año > 2030:
+        return {"error": "Año debe estar entre 1900 y 2030"}, 400
+
+# A07 - Authentication Failures (login.py + registro.py)
+# Bloqueo de cuenta
+def register_failed_attempt(email, ip_address):
+    if email not in failed_attempts:
+        failed_attempts[email] = {'count': 0}
+    
+    failed_attempts[email]['count'] += 1
+    
+    if failed_attempts[email]['count'] >= MAX_ATTEMPTS:
+        locked_accounts[email] = time.time()
+        log_account_locked(email, ip_address)
+        return True
+
+# Validación contraseña robusta
+def validar_contraseña(password):
+    if len(password) < 8:
+        return False, "Mínimo 8 caracteres"
+    if not re.search(r'[A-Z]', password):
+        return False, "Debe contener mayúscula"
+    if not re.search(r'[a-z]', password):
+        return False, "Debe contener minúscula"
+    if not re.search(r'\d', password):
+        return False, "Debe contener número"
+    return True, "Válida"
+
+# A08 - Data Integrity Failures (coches.py + config.py)
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+if file.content_length > MAX_FILE_SIZE:
+    return {"error": "Archivo muy grande (máx 5MB)"}, 400
+
+# A09 - Logging Failures (security_logger.py + login.py)
+from security_logger import (
+    log_login_success,
+    log_login_failure,
+    log_account_locked
+)
+
+# Login exitoso
+log_login_success(user['email'], ip_address, user_agent)
+
+# Login fallido
+log_login_failure(email, ip_address, "Contraseña incorrecta", user_agent)
+
+# Cuenta bloqueada
+log_account_locked(email, ip_address)
+
+# A10 - Exception Handling (app.py)
+@app.errorhandler(500)
+def internal_error(error):
+    security_logger.error(f"Internal Server Error: {str(error)}")
+    return jsonify({
+        'success': False,
+        'error': 'Internal Server Error',
+        'message': 'Ha ocurrido un error interno'
+    }), 500
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        'success': False,
+        'error': 'Not Found',
+        'message': 'El recurso solicitado no existe'
+    }), 404
+
 ```
 
-**Eventos logueados:** LOGIN_SUCCESS, LOGIN_FAILURE, ACCOUNT_LOCKED, REGISTER, UNAUTHORIZED_ACCESS, TOKEN_EXPIRED, ADMIN_ACTION, RATE_LIMIT, FILE_UPLOAD, ERRORS
+**Eventos logueados:** LOGIN_SUCCESS, LOGIN_FAILURE, ACCOUNT_LOCKED, REGISTER_SUCCESS, REGISTER_FAILURE, UNAUTHORIZED_ACCESS, TOKEN_EXPIRED, INVALID_TOKEN, ADMIN_ACTION, RATE_LIMIT_EXCEEDED, FILE_UPLOAD, APPLICATION_ERROR
 
 ---
 
