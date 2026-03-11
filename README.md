@@ -9,10 +9,9 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 
 ---
 
-## 📸 Capturas de pantalla
+## 📸 Imagen de la APP
 
 <img width="993" height="865" alt="Admin" src="https://github.com/user-attachments/assets/f910d3d8-eb8d-49e5-b458-381e1647378d" />
-
 
 ---
 
@@ -83,7 +82,8 @@ appcoches/
 │   └── init.sql                   # BD con datos
 ├── Imagenes App/                  # Screenshots
 ├── APP-COCHES.postman_collection.json
-└── README.md
+├── README.md
+└── bbdd.sql
 ```
 
 ---
@@ -124,29 +124,79 @@ pytest --cov=.           # Con cobertura
 <img width="1362" height="376" alt="cap pruebas pytest" src="https://github.com/user-attachments/assets/01781e4a-c037-4b1c-a6f5-acf6813f89f7" />
 
 ---
+## 📬 Postman
 
-## 📬 Postman - 3 carpetas
+Archivo: APP-COCHES.postman_collection.json
 
-**Archivo:** `APP-COCHES.postman_collection.json`
+La colección de Postman incluye pruebas automáticas para los endpoints principales de la API.
 
-**1. Autenticación (3 requests):**
-- POST Login Admin - Guarda token automáticamente en `{{admin_token}}`
-- POST Registro - Valida contraseñas robustas
-- GET Verificar Token
+**1️⃣ Autenticación**
 
-**2. Consultas públicas (5 requests):**
-- GET Todos los coches
-- GET Coches > 20000€ - Tests: verifica precio y ordenamiento
-- GET Filtrar por BMW
-- GET Marcas
-- GET Estadísticas
+POST /api/registro
 
-**3. CRUD Admin (3 requests):**
-- POST Crear coche - Guarda `{{last_coche_id}}`
-- PUT Editar coche
-- DELETE Eliminar coche
+Registra un nuevo usuario y valida el formato del email y la contraseña.
 
-**Importar:** Postman → Import → Arrastrar archivo JSON
+<img width="1381" height="228" alt="CAP REGISTRO" src="https://github.com/user-attachments/assets/53a2feb5-a033-4b81-96a4-6fdc69b03083" />
+
+POST /api/login
+
+Inicia sesión y guarda automáticamente el token JWT en la variable {{auth_token}}.
+
+<img width="1383" height="391" alt="CAP LOGIN" src="https://github.com/user-attachments/assets/dea936c3-ba1c-4464-9e6e-37735a47dad1" />
+
+**2️⃣ Consultas públicas**
+
+GET /api/coches
+
+Obtiene los coches filtrando por precio mínimo (> 20000€) y ordenados por precio descendente.
+
+<img width="1377" height="418" alt="CAP GET" src="https://github.com/user-attachments/assets/f757a095-0670-49c3-9c10-f5f433010c93" />
+
+Tests incluidos:
+
+-Verifica status 200
+
+-Comprueba que la respuesta es JSON
+
+-Valida la estructura de datos
+
+-Verifica que todos los coches cuestan más de 20.000€
+
+-Comprueba que están ordenados por precio
+
+-Verifica que cada coche tiene id, marca, modelo, año y precio
+
+**3️⃣ CRUD de coches (Solo Admin)**
+
+Requiere autenticación con token JWT.
+
+POST /api/coches
+
+Crea un coche nuevo y guarda automáticamente {{ultimo_coche_id}}.
+
+<img width="1382" height="223" alt="CAP CREAR" src="https://github.com/user-attachments/assets/6472b31b-42c7-43ac-ad5f-8b01c84eb142" />
+
+PUT /api/coches/:id
+
+Edita un coche existente.
+
+<img width="1386" height="213" alt="CAP EDITAR" src="https://github.com/user-attachments/assets/38a87744-7ab7-4ee5-a8f8-bedc33fad592" />
+
+DELETE /api/coches/:id
+
+Elimina un coche.
+
+<img width="1391" height="208" alt="CAP eliminar" src="https://github.com/user-attachments/assets/dc14d595-7faf-4035-9688-1bd3c7f9d533" />
+
+📥 Importar colección
+
+Abrir Postman
+
+Click en Import
+
+Arrastrar el archivo:
+
+APP-COCHES.postman_collection.json
 
 ---
 
@@ -225,15 +275,6 @@ docker-compose restart        # Reiniciar
 
 **Triggers:** Push a main/master/develop, Pull Requests
 <img width="1445" height="282" alt="image" src="https://github.com/user-attachments/assets/2f789b4c-f9c2-4bf6-8c29-aa2ed8a31efd" />
-
----
-
-## 📚 Documentación adicional
-
-- **SEGURIDAD_OWASP.md** - Detalles completos de cada protección
-- **TESTS_README.md** - Guía completa de tests con fixtures
-- **POSTMAN_GUIDE.md** - Ejemplos de uso de Postman
-- **GITHUB_ACTIONS.md** - Configuración CI/CD
 
 ---
 
