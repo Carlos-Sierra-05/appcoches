@@ -419,6 +419,19 @@ docker-compose restart        # Reiniciar
 
 ---
 
+## 🌿 Gestión de ramas / forks
+
+**Ramas principales:**
+- main → rama estable de producción
+- develop → rama de desarrollo para nuevas funcionalidades
+
+**Flujo de trabajo:**
+- Se realizan cambios y nuevas funcionalidades en develop.
+- Una vez probadas, se hacen merges hacia main.
+- Permite mantener main estable mientras se desarrolla en paralelo.
+
+---
+
 ## 🎓 Proyecto académico
 
 Demuestra:
