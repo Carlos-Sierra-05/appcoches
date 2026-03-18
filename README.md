@@ -33,7 +33,7 @@ Aplicación web full-stack para la gestión de un catálogo de coches con autent
 
 **Backend:** Python 3.11, Flask, MySQL 8.0, JWT, bcrypt, Flask-Limiter  
 **Frontend:** HTML5, CSS3, JavaScript  
-**Testing:** Pytest (82 tests), pytest-cov  
+**Testing:** Pytest (73 tests), pytest-cov  
 **DevOps:** Docker, GitHub Actions, Flake8, Bandit
 
 ---
